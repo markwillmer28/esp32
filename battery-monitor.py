@@ -6,8 +6,11 @@ import time
 import board
 from adafruit_max1704x import MAX17048
 import microcontroller
-# from adafruit_lc709203f import LC709203F, PackSize
+import board
+import digitalio
 
+switch = digitalio.DigitalInOut(board.D1)
+switch.direction = digitalio.Direction.INPUT
 #
 i2c = board.I2C()
 while not i2c.try_lock():
@@ -29,5 +32,6 @@ while device:
     print(f"Battery voltage: {device.cell_voltage:.2f} Volts")
     print(f"Battery percentage: {device.cell_percent:.1f} %")
     print(f"Board temperature: {microcontroller.cpu.temperature:.1f} C")
+    print(f"Button state: {switch.value}");
     print("")
     time.sleep(1)
